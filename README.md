@@ -1,0 +1,2 @@
+基于[RapidOcrOnnx](https://github.com/RapidAI/RapidOcrOnnx)
+编译时将[onnxruntime-static](https://github.com/HIllya51/Luna_CV_NLP/releases/download/runtime_static/onnxruntime-static.zip)和[opencv-static](https://github.com/HIllya51/Luna_CV_NLP/releases/download/runtime_static/opencv-static.zip)解压到根目录，运行buildvs22.bat编译。

@@ -1,0 +1,5 @@
+build
+opencv-static/*
+onnxruntime-static/*
+!opencv-static/OpenCVWrapperConfig.cmake
+!onnxruntime-static/OnnxRuntimeWrapper.cmake
