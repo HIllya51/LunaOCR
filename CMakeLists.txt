@@ -7,6 +7,7 @@ elseif (UNIX)
 endif ()
 project(RapidOcrOnnx)
 
+include("VC-LTL helper for cmake.cmake")
 # Output BIN JNI CLIB
 if (NOT DEFINED OCR_OUTPUT)
     set(OCR_OUTPUT "BIN")
