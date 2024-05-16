@@ -41,13 +41,4 @@ struct TextBlock {
     double crnnTime;
     double blockTime;
 };
-
-struct OcrResult {
-    double dbNetTime;
-    std::vector<TextBlock> textBlocks;
-    //cv::Mat boxImg;
-    double detectTime;
-    std::string strRes;
-};
-
 #endif //__OCR_STRUCT_H__

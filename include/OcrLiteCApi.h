@@ -33,24 +33,23 @@ typedef struct __ocr_param {
     int mostAngle; // 1 means true
 } OCR_PARAM;
 
+
+struct ocrpoints{
+    int x1,y1,x2,y2,x3,y3,x4,y4;
+    
+};
 /*
 By default, nThreads should be the number of threads
 */
 _QM_OCR_API OCR_HANDLE
 OcrInit(const char *szDetModel, const char *szClsModel, const char *szRecModel, const char *szKeyPath, int nThreads);
 
-// _QM_OCR_API OCR_BOOL
-// OcrDetect(OCR_HANDLE handle, const char *imgPath, const char *imgName, OCR_PARAM *pParam);
-
 _QM_OCR_API OCR_BOOL
-OcrDetect(OCR_HANDLE handle, const char *imgPath, const char *imgName ,int doAngle);
-
-_QM_OCR_API int OcrGetLen(OCR_HANDLE handle);
-
-_QM_OCR_API OCR_BOOL OcrGetResult(OCR_HANDLE handle, char *szBuf, int nLen);
+OcrDetect(OCR_HANDLE handle, const void* binptr, size_t size ,int doAngle, int* num, ocrpoints** points, char*** strings);
 
 _QM_OCR_API void OcrDestroy(OCR_HANDLE handle);
 
+_QM_OCR_API void OcrFreeptr( int num,ocrpoints* ps,char** strings);
 };
 #endif //__OCR_LITE_C_API_H__
 #endif //__cplusplus

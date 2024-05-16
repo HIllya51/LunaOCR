@@ -38,7 +38,6 @@ inline T clamp(T x, T min, T max) {
     return x;
 }
 
-double getCurrentTime();
 
 inline bool isFileExists(const std::string &name) {
     struct stat buffer;
@@ -86,11 +85,5 @@ std::vector<Ort::AllocatedStringPtr> getOutputNames(Ort::Session *session);
 void saveImg(cv::Mat &img, const char *imgPath);
 
 std::string getSrcImgFilePath(const char *path, const char *imgName);
-
-std::string getResultTxtFilePath(const char *path, const char *imgName);
-
-std::string getResultImgFilePath(const char *path, const char *imgName);
-
-std::string getDebugImgFilePath(const char *path, const char *imgName, size_t i, const char *tag);
 
 #endif //__OCR_UTILS_H__

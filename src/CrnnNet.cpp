@@ -72,7 +72,6 @@ void CrnnNet::initModel(const std::string &pathStr, const std::string &keysPath)
     }
     keys.insert(keys.begin(), "#");
     keys.emplace_back(" ");
-    printf("total keys size(%lu)\n", keys.size());
 }
 
 template<class ForwardIterator>
@@ -132,21 +131,11 @@ TextLine CrnnNet::getTextLine(const cv::Mat &src) {
     return scoreToTextLine(outputData, outputShape[1], outputShape[2]);
 }
 
-std::vector<TextLine> CrnnNet::getTextLines(std::vector<cv::Mat> &partImg, const char *path, const char *imgName) {
+std::vector<TextLine> CrnnNet::getTextLines(std::vector<cv::Mat> &partImg) {
     int size = partImg.size();
     std::vector<TextLine> textLines(size);
     for (int i = 0; i < size; ++i) {
-        //OutPut DebugImg
-        if (isOutputDebugImg) {
-            std::string debugImgFile = getDebugImgFilePath(path, imgName, i, "-debug-");
-            saveImg(partImg[i], debugImgFile.c_str());
-        }
-
-        //getTextLine
-        double startCrnnTime = getCurrentTime();
         TextLine textLine = getTextLine(partImg[i]);
-        double endCrnnTime = getCurrentTime();
-        textLine.time = endCrnnTime - startCrnnTime;
         textLines[i] = textLine;
     }
     return textLines;

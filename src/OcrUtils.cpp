@@ -4,9 +4,6 @@
 #include "OcrUtils.h"
 #include "clipper.hpp"
 
-double getCurrentTime() {
-    return (static_cast<double>(cv::getTickCount())) / cv::getTickFrequency() * 1000;//单位毫秒
-}
 
 //onnxruntime init windows
 std::wstring strToWstr(std::string str) {
@@ -331,21 +328,6 @@ std::vector<Ort::AllocatedStringPtr> getInputNames(Ort::Session *session) {
     for (size_t i = 0; i < numInputNodes; i++) {
         auto inputName = session->GetInputNameAllocated(i, allocator);
         inputNamesPtr.push_back(std::move(inputName));
-        /*printf("inputName[%zu] = %s\n", i, inputName.get());
-
-        // print input node types
-        auto typeInfo = session->GetInputTypeInfo(i);
-        auto tensorInfo = typeInfo.GetTensorTypeAndShapeInfo();
-
-        ONNXTensorElementDataType type = tensorInfo.GetElementType();
-        printf("inputType[%zu] = %u\n", i, type);
-
-        // print input shapes/dims
-        input_node_dims = tensorInfo.GetShape();
-        printf("Input num_dims = %zu\n", input_node_dims.size());
-        for (size_t j = 0; j < input_node_dims.size(); j++) {
-            printf("Input dim[%zu] = %llu\n",j, input_node_dims[j]);
-        }*/
     }
     return inputNamesPtr;
 }
@@ -361,49 +343,12 @@ std::vector<Ort::AllocatedStringPtr> getOutputNames(Ort::Session *session) {
     for (size_t i = 0; i < numOutputNodes; i++) {
         auto outputName = session->GetOutputNameAllocated(i, allocator);
         outputNamesPtr.push_back(std::move(outputName));
-        /*printf("outputName[%zu] = %s\n", i, outputName.get());
-
-        // print input node types
-        auto type_info = session->GetOutputTypeInfo(i);
-        auto tensor_info = type_info.GetTensorTypeAndShapeInfo();
-
-        ONNXTensorElementDataType type = tensor_info.GetElementType();
-        printf("outputType[%zu] = %u\n", i, type);
-
-        // print input shapes/dims
-        output_node_dims = tensor_info.GetShape();
-        printf("output num_dims = %zu\n", output_node_dims.size());
-        for (size_t j = 0; j < output_node_dims.size(); j++) {
-            printf("output dim[%zu] = %llu\n",j, output_node_dims[j]);
-        }*/
     }
     return outputNamesPtr;
-}
-
-void saveImg(cv::Mat &img, const char *imgPath) {
-    cv::imwrite(imgPath, img);
 }
 
 std::string getSrcImgFilePath(const char *path, const char *imgName) {
     std::string filePath;
     filePath.append(path).append(imgName);
-    return filePath;
-}
-
-std::string getResultTxtFilePath(const char *path, const char *imgName) {
-    std::string filePath;
-    filePath.append(path).append(imgName).append("-result.txt");
-    return filePath;
-}
-
-std::string getResultImgFilePath(const char *path, const char *imgName) {
-    std::string filePath;
-    filePath.append(path).append(imgName).append("-result.jpg");
-    return filePath;
-}
-
-std::string getDebugImgFilePath(const char *path, const char *imgName, size_t i, const char *tag) {
-    std::string filePath;
-    filePath.append(path).append(imgName).append(tag).append(std::to_string(i)).append(".jpg");
     return filePath;
 }
