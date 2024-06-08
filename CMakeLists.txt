@@ -47,16 +47,7 @@ endif (OnnxRuntime_FOUND)
 
 # OpenCV
 set(BUILD_SHARED_LIBS false)
-#include(${CMAKE_CURRENT_SOURCE_DIR}/opencv-static/OpenCVWrapperConfig.cmake)
-
-if (CMAKE_CL_64)
-    message("配置WINDOWS OpenCV x64 路径: ${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x64")
-    set(OpenCV_DIR "${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x64")
-else ()
-    message("配置WINDOWS OpenCV x86 路径: ${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x86")
-    set(OpenCV_DIR "${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x86")
-endif ()
-
+include(${CMAKE_CURRENT_SOURCE_DIR}/opencv-static/OpenCVWrapperConfig.cmake)
 find_package(OpenCV REQUIRED)
 if (OpenCV_FOUND)
     message(STATUS "OpenCV_LIBS: ${OpenCV_LIBS}")
