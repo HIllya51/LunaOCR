@@ -47,14 +47,26 @@ endif (OnnxRuntime_FOUND)
 
 # OpenCV
 set(BUILD_SHARED_LIBS false)
-include(${CMAKE_CURRENT_SOURCE_DIR}/opencv-static/OpenCVWrapperConfig.cmake)
-find_package(OpenCV REQUIRED)
-if (OpenCV_FOUND)
-    message(STATUS "OpenCV_LIBS: ${OpenCV_LIBS}")
-    message(STATUS "OpenCV_INCLUDE_DIRS: ${OpenCV_INCLUDE_DIRS}")
+# include(${CMAKE_CURRENT_SOURCE_DIR}/opencv-static/OpenCVWrapperConfig.cmake)
+# find_package(OpenCV REQUIRED)
+# if (OpenCV_FOUND)
+#     message(STATUS "OpenCV_LIBS: ${OpenCV_LIBS}")
+#     message(STATUS "OpenCV_INCLUDE_DIRS: ${OpenCV_INCLUDE_DIRS}")
+# else ()
+#     message(FATAL_ERROR "opencv Not Found!")
+# endif (OpenCV_FOUND)
+if (CMAKE_CL_64)
+    message("配置WINDOWS OpenCV x64 路径: ${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x64")
+    set(OpenCV_DIR "${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x64")
+    target_link_directories(${OpenCV_DIR}/x64/vc16)
+
 else ()
-    message(FATAL_ERROR "opencv Not Found!")
-endif (OpenCV_FOUND)
+    message("配置WINDOWS OpenCV x86 路径: ${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x86")
+    set(OpenCV_DIR "${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x86")
+    target_link_directories(${OpenCV_DIR}/x86/vc16)
+endif ()
+
+set(OpenCV_LIBS opencv_core;opencv_features2d;opencv_flann;opencv_highgui;opencv_imgcodecs;opencv_imgproc;opencv_photo;opencv_video)
 
 # project include
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
