@@ -58,14 +58,17 @@ set(BUILD_SHARED_LIBS false)
 if (CMAKE_CL_64)
     message("配置WINDOWS OpenCV x64 路径: ${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x64")
     set(OpenCV_DIR "${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x64")
-    target_link_directories(${OpenCV_DIR}/x64/vc16)
+    link_directories(${OpenCV_DIR}/x64/vc16/staticlib)
+    include(${OpenCV_DIR}/x64/vc16/staticlib/OpenCVConfig.cmake)
 
 else ()
     message("配置WINDOWS OpenCV x86 路径: ${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x86")
     set(OpenCV_DIR "${CMAKE_CURRENT_LIST_DIR}/opencv-static/windows-x86")
-    target_link_directories(${OpenCV_DIR}/x86/vc16)
+    link_directories(${OpenCV_DIR}/x86/vc16/staticlib)
+    include(${OpenCV_DIR}/x86/vc16/staticlib/OpenCVConfig.cmake)
 endif ()
 
+include_directories(${OpenCV_DIR}/include)
 set(OpenCV_LIBS opencv_core;opencv_features2d;opencv_flann;opencv_highgui;opencv_imgcodecs;opencv_imgproc;opencv_photo;opencv_video)
 
 # project include
